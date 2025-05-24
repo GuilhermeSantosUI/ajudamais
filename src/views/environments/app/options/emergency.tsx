@@ -177,16 +177,6 @@ export function EmergencyScreen() {
             </View>
           </Marker>
         )}
-
-        {/* Marcador do usuário personalizado */}
-        {userLocation && (
-          <Marker coordinate={userLocation} anchor={{ x: 0.5, y: 0.5 }}>
-            <View className="items-center justify-center">
-              <View className="h-8 w-8 rounded-full bg-blue-500 opacity-80" />
-              <View className="absolute h-2 w-2 rounded-full bg-white" />
-            </View>
-          </Marker>
-        )}
       </MapView>
 
       {/* Bottom Sheet principal */}
