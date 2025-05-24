@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "ajudamais",
+    "slug": "ajudamais",
+    "version": "1.0.0",
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "experiments": {
+      "tsconfigPaths": true
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#ffffff",
+          "defaultChannel": "default",
+          "sounds": [
+            "./local/assets/notification_sound.wav",
+            "./local/assets/notification_sound_other.wav"
+          ],
+          "enableBackgroundRemoteNotifications": false
+        }
+      ]
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "022f8021-85df-4b38-a368-ffe290e9e9cc"
+      }
+    },
+    "owner": "guilhermesantosui"
+  }
+}
