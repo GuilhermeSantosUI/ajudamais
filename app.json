@@ -45,6 +45,7 @@
       }
     },
     "extra": {
+      "GOOGLE_MAPS_API_KEY": "AIzaSyDxSYIDVKCmTqM_jbzk9im9j7-ioil5EFc",
       "eas": {
         "projectId": "022f8021-85df-4b38-a368-ffe290e9e9cc"
       }

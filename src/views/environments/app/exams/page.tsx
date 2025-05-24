@@ -1,12 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import {
-  CalendarBlank,
-  CaretRight,
-  Clock,
-  FirstAid,
-  MagnifyingGlass,
-  Plus,
-} from 'phosphor-react-native';
+import { CalendarBlank, CaretRight, Clock, FirstAid, MagnifyingGlass, Plus } from 'phosphor-react-native';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 export function Exams() {

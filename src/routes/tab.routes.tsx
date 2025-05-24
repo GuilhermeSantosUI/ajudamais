@@ -1,10 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { DotsNine, FileArchive, House as HomeIcon, Lock } from 'phosphor-react-native';
-
-import { Exams } from '~/views/environments/app/exams/page';
 import { Home } from '~/views/environments/app/home/page';
 import { Options } from '~/views/environments/app/options/page';
 import { HomeBI } from '~/views/environments/bi/home/page';
+import { DotsNine, FileArchive, Gear, House as HomeIcon, Lock, Notebook, PersonSimpleTaiChi } from 'phosphor-react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +28,7 @@ export default function TabRoutes() {
       }}>
       <Tab.Screen
         name="Início"
-        component={Home}
+        component={Options}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <HomeIcon color={focused ? '#007AFF' : '#8e8e93'} size={24} />
@@ -38,30 +36,29 @@ export default function TabRoutes() {
         }}
       />
       <Tab.Screen
-        name="Opções"
+        name="Notas"
         component={Options}
         options={{
           tabBarIcon: ({ color, focused }) => (
-            <DotsNine color={focused ? '#007AFF' : '#8e8e93'} size={24} />
+            <Notebook color={focused ? '#007AFF' : '#8e8e93'} size={24} />
           ),
         }}
       />
       <Tab.Screen
-        name="Exames"
-        component={Exams}
+        name="Saúde"
+        component={Home}
         options={{
           tabBarIcon: ({ color, focused }) => (
-            <FileArchive color={focused ? '#007AFF' : '#8e8e93'} size={24} />
+            <PersonSimpleTaiChi color={focused ? '#007AFF' : '#8e8e93'} size={24} />
           ),
         }}
       />
       <Tab.Screen
         name="Controle"
-        // component={Account}
         component={HomeBI}
         options={{
           tabBarIcon: ({ color, focused }) => (
-            <Lock color={focused ? '#007AFF' : '#8e8e93'} size={24} />
+            <Gear color={focused ? '#007AFF' : '#8e8e93'} size={24} />
           ),
         }}
       />
