@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Gear, House as HomeIcon, Notebook, PersonSimpleTaiChi } from 'phosphor-react-native';
 import { Home } from '~/views/environments/app/home/page';
 import { Options } from '~/views/environments/app/options/page';
 import { HomeBI } from '~/views/environments/bi/home/page';
-import { DotsNine, FileArchive, Gear, House as HomeIcon, Lock, Notebook, PersonSimpleTaiChi } from 'phosphor-react-native';
 
 const Tab = createBottomTabNavigator();
 

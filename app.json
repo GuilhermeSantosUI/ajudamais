@@ -22,7 +22,8 @@
           ],
           "enableBackgroundRemoteNotifications": false
         }
-      ]
+      ],
+      "expo-audio"
     ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",

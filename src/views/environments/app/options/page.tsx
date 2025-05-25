@@ -349,4 +349,4 @@ export function Options() {
       </BottomSheet>
     </View>
   );
-} // Substitua pelo caminho correto do GIF
+}

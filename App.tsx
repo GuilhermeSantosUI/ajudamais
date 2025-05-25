@@ -1,8 +1,9 @@
-import Routes from '~/routes';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
+import Routes from '~/routes';
 
 import './global.css';
 
@@ -47,7 +48,9 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <Routes />
+      <BottomSheetModalProvider>
+        <Routes />
+      </BottomSheetModalProvider>
     </View>
   );
 }

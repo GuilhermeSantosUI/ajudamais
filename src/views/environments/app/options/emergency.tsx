@@ -1,12 +1,22 @@
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
+import * as Audio from 'expo-audio';
 import * as Location from 'expo-location';
 import { StatusBar } from 'expo-status-bar';
-import { Ambulance, ArrowLeft, Clock, MapPin } from 'phosphor-react-native';
+import {
+  Ambulance,
+  ArrowLeft,
+  Clock,
+  FirstAid,
+  MapPin,
+  Megaphone,
+  Warning,
+} from 'phosphor-react-native';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Linking, Platform, Text, TouchableOpacity, Vibration, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import MapView, { Marker, Polyline } from 'react-native-maps';
+import Siren from '../../../../../assets/siren.mp3';
 
 // Interface para coordenadas
 interface Coordinate {
@@ -16,17 +26,24 @@ interface Coordinate {
 
 export function EmergencyScreen() {
   const sheetRef = useRef<BottomSheet>(null);
+  const arrivalSheetRef = useRef<BottomSheet>(null);
   const navigation = useNavigation();
   const mapRef = useRef<MapView>(null);
-  const [emergencyStatus, setEmergencyStatus] = useState<'searching' | 'found'>('searching');
+  const [emergencyStatus, setEmergencyStatus] = useState<'searching' | 'found' | 'arrived'>(
+    'searching'
+  );
+  const player = Audio.useAudioPlayer(Siren);
+
   const [eta, setEta] = useState('5-7 minutos');
   const [userLocation, setUserLocation] = useState<Coordinate | null>(null);
   const [ambulanceLocation, setAmbulanceLocation] = useState<Coordinate | null>(null);
   const [routeCoords, setRouteCoords] = useState<Coordinate[]>([]);
   const [progress, setProgress] = useState(0);
   const animationRef = useRef<NodeJS.Timeout | null>(null);
+  const soundRef = useRef<any>(null);
 
   const snapPoints = useMemo(() => ['40%', '90%'], []);
+  const arrivalSnapPoints = useMemo(() => ['50%'], []);
 
   const [selectedUnit] = useState({
     id: '3',
@@ -39,6 +56,22 @@ export function EmergencyScreen() {
       longitude: -37.074397,
     },
   });
+
+  // Efeitos de som e vibração quando a ambulância chega
+  const playArrivalEffects = useCallback(() => {
+    // Vibrar por 3 segundos
+    Vibration.vibrate([1000, 500, 1000, 500, 1000]);
+
+    try {
+      player.play();
+
+      setTimeout(async () => {
+        player.pause();
+      }, 5000);
+    } catch (error) {
+      console.log('Erro ao carregar som', error);
+    }
+  }, []);
 
   // Gerar coordenadas intermediárias para a rota
   const generateRoute = (start: Coordinate, end: Coordinate, steps: number = 20) => {
@@ -59,14 +92,17 @@ export function EmergencyScreen() {
 
     let currentProgress = 0;
     const totalSteps = routeCoords.length;
-    const updateInterval = 10000; // ms
+    const updateInterval = 1000; // ms (reduzido para 1s para fins de demonstração)
 
     animationRef.current = setInterval(() => {
       currentProgress += 1;
       setProgress(currentProgress);
 
       if (currentProgress >= totalSteps - 1) {
-        clearInterval(animationRef.current);
+        clearInterval(animationRef.current as any);
+        setEmergencyStatus('arrived');
+        playArrivalEffects();
+        arrivalSheetRef.current?.snapToIndex(0);
         return;
       }
 
@@ -83,7 +119,7 @@ export function EmergencyScreen() {
         300
       );
     }, updateInterval);
-  }, [routeCoords]);
+  }, [routeCoords, playArrivalEffects]);
 
   // Obter localização do usuário
   useEffect(() => {
@@ -118,6 +154,10 @@ export function EmergencyScreen() {
 
     return () => {
       if (animationRef.current) clearInterval(animationRef.current);
+      if (soundRef.current) {
+        soundRef.current.stop();
+        soundRef.current.release();
+      }
     };
   }, []);
 
@@ -289,6 +329,69 @@ export function EmergencyScreen() {
               </Text>
             </>
           )}
+        </BottomSheetView>
+      </BottomSheet>
+
+      {/* Bottom Sheet de chegada da ambulância */}
+      <BottomSheet
+        ref={arrivalSheetRef}
+        index={-1}
+        snapPoints={arrivalSnapPoints}
+        enableDynamicSizing={false}
+        backdropComponent={(props) => (
+          <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.8} />
+        )}>
+        <BottomSheetView className="flex-1 p-6">
+          <View className="mb-4 flex-row items-center justify-center rounded-xl bg-[#FFF6F6] px-4 py-3">
+            <Megaphone size={32} color="#FF5252" weight="fill" />
+            <Text className="ml-2 font-[DINNextW1GMedium] text-lg text-[#FF5252]">
+              AMBULÂNCIA CHEGOU!
+            </Text>
+          </View>
+
+          <Text className="mb-4 font-[DINNextW1GMedium] text-base text-gray-800">
+            Instruções para direcionar a equipe médica:
+          </Text>
+
+          <View className="mb-4 rounded-lg bg-gray-100 p-4">
+            <View className="mb-3 flex-row items-start">
+              <View className="mr-3 mt-1 h-6 w-6 items-center justify-center rounded-full bg-[#FF5252]">
+                <FirstAid size={14} color="white" weight="fill" />
+              </View>
+              <Text className="flex-1 font-[DINNextW1GRegular] text-base text-gray-800">
+                Aguarde na porta ou em local visível para a equipe
+              </Text>
+            </View>
+
+            <View className="mb-3 flex-row items-start">
+              <View className="mr-3 mt-1 h-6 w-6 items-center justify-center rounded-full bg-[#FF5252]">
+                <Warning size={14} color="white" weight="fill" />
+              </View>
+              <Text className="flex-1 font-[DINNextW1GRegular] text-base text-gray-800">
+                Informe claramente o local exato: "Apartamento 302, bloco B"
+              </Text>
+            </View>
+
+            <View className="flex-row items-start">
+              <View className="mr-3 mt-1 h-6 w-6 items-center justify-center rounded-full bg-[#FF5252]">
+                <MapPin size={14} color="white" weight="fill" />
+              </View>
+              <Text className="flex-1 font-[DINNextW1GRegular] text-base text-gray-800">
+                Descreva brevemente a situação: "Idoso com dor no peito"
+              </Text>
+            </View>
+          </View>
+
+          <TouchableOpacity
+            className="rounded-lg bg-[#FF5252] py-3"
+            onPress={() => {
+              arrivalSheetRef.current?.close();
+              navigation.goBack();
+            }}>
+            <Text className="text-center font-[DINNextW1GMedium] text-white">
+              Entendi, obrigado!
+            </Text>
+          </TouchableOpacity>
         </BottomSheetView>
       </BottomSheet>
     </GestureHandlerRootView>
