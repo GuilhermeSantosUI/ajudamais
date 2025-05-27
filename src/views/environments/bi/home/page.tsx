@@ -9,7 +9,15 @@ import {
   User,
 } from 'phosphor-react-native';
 import { useState } from 'react';
-import { ScrollView, Switch, Text, TouchableOpacity, View } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 export function ElderlyHealthSettings() {
   const [isWatchConnected, setIsWatchConnected] = useState(false);
@@ -20,133 +28,197 @@ export function ElderlyHealthSettings() {
   const [shareDataWithFamily, setShareDataWithFamily] = useState(true);
 
   return (
-    <ScrollView className="flex-1 bg-gray-50 p-6">
-      <Text className="mb-6 text-3xl font-bold text-[#0D295D]">Configurações de Saúde</Text>
+    <View className="flex-1 bg-white">
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView className="flex-1">
+        <ScrollView className="flex-1">
+          <View className="p-6">
+            {/* Header */}
+            <View className="mb-6">
+              <Text className="font-[DINNextW1GMedium] text-2xl text-black">
+                Configurações de Saúde
+              </Text>
+            </View>
 
-      {/* Health Monitoring Section */}
-      <View className="mb-8 rounded-xl bg-white p-6 shadow-sm">
-        <Text className="mb-4 text-xl font-semibold text-gray-800">Monitoramento de Saúde</Text>
+            {/* Health Monitoring */}
+            <View className="mb-6">
+              <Text className="mb-4 font-[DINNextW1GRegular] text-lg text-gray-500">
+                Monitoramento de Saúde
+              </Text>
+              <View className="rounded-lg bg-gray-100">
+                <View className="flex-row items-center justify-between border-b border-gray-200 p-4">
+                  <View className="flex-row items-center">
+                    <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-[#007AFF]">
+                      <AppleLogo size={24} color="#FEBB01" />
+                    </View>
+                    <Text className="font-[DINNextW1GRegular] text-base text-gray-800">
+                      Conectar Apple Watch
+                    </Text>
+                  </View>
+                  <Switch
+                    value={isWatchConnected}
+                    onValueChange={setIsWatchConnected}
+                    trackColor={{ false: '#767577', true: '#007AFF' }}
+                    thumbColor="#FFFFFF"
+                  />
+                </View>
+                <View className="flex-row items-center justify-between border-b border-gray-200 p-4">
+                  <View className="flex-row items-center">
+                    <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-[#007AFF]">
+                      <AndroidLogo size={24} color="#FEBB01" />
+                    </View>
+                    <Text className="font-[DINNextW1GRegular] text-base text-gray-800">
+                      Conectar Wear OS
+                    </Text>
+                  </View>
+                  <Switch
+                    value={isWatchConnected}
+                    onValueChange={setIsWatchConnected}
+                    trackColor={{ false: '#767577', true: '#007AFF' }}
+                    thumbColor="#FFFFFF"
+                  />
+                </View>
+                <View className="flex-row items-center justify-between p-4">
+                  <View className="flex-row items-center">
+                    <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-[#007AFF]">
+                      <Heartbeat size={24} color="#FEBB01" />
+                    </View>
+                    <Text className="font-[DINNextW1GRegular] text-base text-gray-800">
+                      Frequência Cardíaca
+                    </Text>
+                  </View>
+                  <Switch
+                    value={heartRateMonitoring}
+                    onValueChange={setHeartRateMonitoring}
+                    trackColor={{ false: '#767577', true: '#007AFF' }}
+                    thumbColor="#FFFFFF"
+                  />
+                </View>
+              </View>
+            </View>
 
-        <View className="mb-4 flex-row items-center justify-between">
-          <View className="flex-row items-center">
-            <AppleLogo size={24} color="#000" weight="fill" className="mr-3" />
-            <Text className="text-lg">Conectar Apple Watch</Text>
+            {/* Alerts and Notifications */}
+            <View className="mb-6">
+              <Text className="mb-4 font-[DINNextW1GRegular] text-lg text-gray-500">
+                Alertas e Notificações
+              </Text>
+              <View className="rounded-lg bg-gray-100">
+                <View className="flex-row items-center justify-between border-b border-gray-200 p-4">
+                  <View className="flex-row items-center">
+                    <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-[#007AFF]">
+                      <Bell size={24} color="#FEBB01" />
+                    </View>
+                    <Text className="font-[DINNextW1GRegular] text-base text-gray-800">
+                      Lembretes de Medicamentos
+                    </Text>
+                  </View>
+                  <Switch
+                    value={medicationReminders}
+                    onValueChange={setMedicationReminders}
+                    trackColor={{ false: '#767577', true: '#007AFF' }}
+                    thumbColor="#FFFFFF"
+                  />
+                </View>
+                <View className="flex-row items-center justify-between border-b border-gray-200 p-4">
+                  <View className="flex-row items-center">
+                    <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-[#007AFF]">
+                      <DeviceMobile size={24} color="#FEBB01" />
+                    </View>
+                    <Text className="font-[DINNextW1GRegular] text-base text-gray-800">
+                      Detecção de Quedas
+                    </Text>
+                  </View>
+                  <Switch
+                    value={fallDetection}
+                    onValueChange={setFallDetection}
+                    trackColor={{ false: '#767577', true: '#007AFF' }}
+                    thumbColor="#FFFFFF"
+                  />
+                </View>
+                <View className="flex-row items-center justify-between p-4">
+                  <View className="flex-row items-center">
+                    <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-[#007AFF]">
+                      <Heartbeat size={24} color="#FEBB01" />
+                    </View>
+                    <Text className="font-[DINNextW1GRegular] text-base text-gray-800">
+                      SOS de Emergência
+                    </Text>
+                  </View>
+                  <Switch
+                    value={emergencySOS}
+                    onValueChange={setEmergencySOS}
+                    trackColor={{ false: '#767577', true: '#007AFF' }}
+                    thumbColor="#FFFFFF"
+                  />
+                </View>
+              </View>
+            </View>
+
+            {/* Family and Privacy */}
+            <View className="mb-6">
+              <Text className="mb-4 font-[DINNextW1GRegular] text-lg text-gray-500">
+                Família e Privacidade
+              </Text>
+              <View className="rounded-lg bg-gray-100">
+                <View className="flex-row items-center justify-between border-b border-gray-200 p-4">
+                  <View className="flex-row items-center">
+                    <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-[#007AFF]">
+                      <User size={24} color="#FEBB01" />
+                    </View>
+                    <Text className="font-[DINNextW1GRegular] text-base text-gray-800">
+                      Compartilhar dados com familiares
+                    </Text>
+                  </View>
+                  <Switch
+                    value={shareDataWithFamily}
+                    onValueChange={setShareDataWithFamily}
+                    trackColor={{ false: '#767577', true: '#007AFF' }}
+                    thumbColor="#FFFFFF"
+                  />
+                </View>
+                <TouchableOpacity className="flex-row items-center p-4">
+                  <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-[#007AFF]">
+                    <Lock size={24} color="#FEBB01" />
+                  </View>
+                  <Text className="font-[DINNextW1GRegular] text-base text-gray-800">
+                    Contatos de Emergência
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Help and Support */}
+            <View className="mb-6">
+              <Text className="mb-4 font-[DINNextW1GRegular] text-lg text-gray-500">
+                Ajuda e Suporte
+              </Text>
+              <View className="rounded-lg bg-gray-100">
+                <TouchableOpacity className="flex-row items-center border-b border-gray-200 p-4">
+                  <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-[#007AFF]">
+                    <Question size={24} color="#FEBB01" />
+                  </View>
+                  <Text className="font-[DINNextW1GRegular] text-base text-gray-800">
+                    Central de Ajuda
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity className="flex-row items-center p-4">
+                  <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-[#007AFF]">
+                    <DeviceMobile size={24} color="#FEBB01" />
+                  </View>
+                  <Text className="font-[DINNextW1GRegular] text-base text-gray-800">
+                    Tutorial do Aplicativo
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Version */}
+            <View className="items-center">
+              <Text className="font-[DINNextW1GRegular] text-xs text-gray-400">Versão 1.2.3</Text>
+            </View>
           </View>
-          <Switch
-            value={isWatchConnected}
-            onValueChange={setIsWatchConnected}
-            trackColor={{ false: '#767577', true: '#0D295D' }}
-          />
-        </View>
-
-        <View className="mb-4 flex-row items-center justify-between">
-          <View className="flex-row items-center">
-            <AndroidLogo size={24} color="#000" weight="fill" className="mr-3" />
-            <Text className="text-lg">Conectar Wear OS</Text>
-          </View>
-          <Switch
-            value={isWatchConnected}
-            onValueChange={setIsWatchConnected}
-            trackColor={{ false: '#767577', true: '#0D295D' }}
-          />
-        </View>
-
-        <View className="mb-4 flex-row items-center justify-between">
-          <View className="flex-row items-center">
-            <Heartbeat size={24} color="#000" weight="fill" className="mr-3" />
-            <Text className="text-lg">Monitoramento de Frequência Cardíaca</Text>
-          </View>
-          <Switch
-            value={heartRateMonitoring}
-            onValueChange={setHeartRateMonitoring}
-            trackColor={{ false: '#767577', true: '#0D295D' }}
-          />
-        </View>
-      </View>
-
-      {/* Alerts and Notifications */}
-      <View className="mb-8 rounded-xl bg-white p-6 shadow-sm">
-        <Text className="mb-4 text-xl font-semibold text-gray-800">Alertas e Notificações</Text>
-
-        <View className="mb-4 flex-row items-center justify-between">
-          <View className="flex-row items-center">
-            <Bell size={24} color="#000" weight="fill" className="mr-3" />
-            <Text className="text-lg">Lembretes de Medicamentos</Text>
-          </View>
-          <Switch
-            value={medicationReminders}
-            onValueChange={setMedicationReminders}
-            trackColor={{ false: '#767577', true: '#0D295D' }}
-          />
-        </View>
-
-        <View className="mb-4 flex-row items-center justify-between">
-          <View className="flex-row items-center">
-            <DeviceMobile size={24} color="#000" weight="fill" className="mr-3" />
-            <Text className="text-lg">Detecção de Quedas</Text>
-          </View>
-          <Switch
-            value={fallDetection}
-            onValueChange={setFallDetection}
-            trackColor={{ false: '#767577', true: '#0D295D' }}
-          />
-        </View>
-
-        <View className="flex-row items-center justify-between">
-          <View className="flex-row items-center">
-            <Heartbeat size={24} color="#000" weight="fill" className="mr-3" />
-            <Text className="text-lg">SOS de Emergência</Text>
-          </View>
-          <Switch
-            value={emergencySOS}
-            onValueChange={setEmergencySOS}
-            trackColor={{ false: '#767577', true: '#0D295D' }}
-          />
-        </View>
-      </View>
-
-      {/* Family and Privacy */}
-      <View className="mb-8 rounded-xl bg-white p-6 shadow-sm">
-        <Text className="mb-4 text-xl font-semibold text-gray-800">Família e Privacidade</Text>
-
-        <TouchableOpacity className="mb-4 flex-row items-center justify-between">
-          <View className="flex-row items-center">
-            <User size={24} color="#000" weight="fill" className="mr-3" />
-            <Text className="text-lg">Compartilhar dados com familiares</Text>
-          </View>
-          <Switch
-            value={shareDataWithFamily}
-            onValueChange={setShareDataWithFamily}
-            trackColor={{ false: '#767577', true: '#0D295D' }}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity className="flex-row items-center justify-between">
-          <View className="flex-row items-center">
-            <Lock size={24} color="#000" weight="fill" className="mr-3" />
-            <Text className="text-lg">Contatos de Emergência</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      {/* Help and Support */}
-      <View className="rounded-xl bg-white p-6 shadow-sm">
-        <Text className="mb-4 text-xl font-semibold text-gray-800">Ajuda e Suporte</Text>
-
-        <TouchableOpacity className="mb-4 flex-row items-center">
-          <Question size={24} color="#000" weight="fill" className="mr-3" />
-          <Text className="text-lg">Central de Ajuda</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity className="flex-row items-center">
-          <DeviceMobile size={24} color="#000" weight="fill" className="mr-3" />
-          <Text className="text-lg">Tutorial do Aplicativo</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View className="mt-8 items-center">
-        <Text className="text-sm text-gray-500">Versão 1.2.3</Text>
-      </View>
-    </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 }
