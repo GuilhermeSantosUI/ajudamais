@@ -1,7 +1,6 @@
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
 import * as Haptics from 'expo-haptics';
-import { BellRinging } from 'phosphor-react-native';
 import { useCallback, useRef, useState } from 'react';
 import { Animated, Easing, Pressable, ScrollView, Text, Vibration, View } from 'react-native';
 
@@ -246,7 +245,7 @@ export function Options() {
               onLongPress={startProgress}
               onPressOut={stopProgress}
               delayLongPress={300}
-              className={`h-[272px] w-[272px] items-center justify-center rounded-full shadow-lg ${
+              className={`h-[100px] w-[272px] items-center justify-center ${
                 isActivated ? 'bg-amber-500' : 'bg-red-500'
               }`}
               style={({ pressed }) => ({
@@ -264,8 +263,7 @@ export function Options() {
                 }}
               />
 
-              <BellRinging size={72} weight="bold" color="white" />
-              <Text className="mt-2 font-[DINNextW1GBold] text-3xl font-bold text-white">
+              <Text className="mt-2 font-[DINNextW1GBold] text-xl font-bold text-white">
                 {isActivated ? 'ATIVADO' : 'SOS'}
               </Text>
 
@@ -298,7 +296,6 @@ export function Options() {
         </View>
       </ScrollView>
 
-      {/* BottomSheet para ação rápida */}
       <BottomSheet
         ref={bottomSheetRef}
         index={-1}
@@ -319,7 +316,6 @@ export function Options() {
         </BottomSheetView>
       </BottomSheet>
 
-      {/* BottomSheet para emergência (múltiplos cliques) */}
       <BottomSheet
         ref={emergencySheetRef}
         index={-1}

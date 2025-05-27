@@ -1,120 +1,152 @@
-import { useNavigation } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
 import {
-  BookOpen,
-  ChartLine,
-  Coins,
-  FileText,
-  GraduationCap,
+  AndroidLogo,
+  AppleLogo,
+  Bell,
+  DeviceMobile,
   Heartbeat,
-  PuzzlePiece,
-  Wallet,
+  Lock,
+  Question,
+  User,
 } from 'phosphor-react-native';
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
+import { ScrollView, Switch, Text, TouchableOpacity, View } from 'react-native';
 
-export function HomeBI() {
-  const navigation = useNavigation<any>();
-
-  const handleDespesa = () => navigation.navigate('Despesa');
-  const handleReceitas = () => navigation.navigate('Receitas');
-  const handleExtratos = () => navigation.navigate('Extratos');
-  const handleGerencial = () => navigation.navigate('Gerencial');
-  const handleRestos = () => navigation.navigate('Restos');
-  const handleFundeb = () => navigation.navigate('FUNDEB');
-  const handleEducacao = () => navigation.navigate('Educacao');
-  const handleSaudePlus = () => navigation.navigate('Saude');
+export function ElderlyHealthSettings() {
+  const [isWatchConnected, setIsWatchConnected] = useState(false);
+  const [medicationReminders, setMedicationReminders] = useState(true);
+  const [fallDetection, setFallDetection] = useState(true);
+  const [emergencySOS, setEmergencySOS] = useState(true);
+  const [heartRateMonitoring, setHeartRateMonitoring] = useState(true);
+  const [shareDataWithFamily, setShareDataWithFamily] = useState(true);
 
   return (
-    <ScrollView className="flex-1 bg-white" contentContainerStyle={{ paddingBottom: 64 }}>
-      <StatusBar style="light" />
+    <ScrollView className="flex-1 bg-gray-50 p-6">
+      <Text className="mb-6 text-3xl font-bold text-[#0D295D]">Configurações de Saúde</Text>
 
-      <View className="flex h-[300px] w-full justify-end rounded-xl bg-[#0D295D] px-5 pb-10">
-        <Image
-          source={{ uri: 'https://avatars.githubusercontent.com/u/69989490?v=4' }}
-          className="absolute left-5 top-20 h-[50px] w-[50px] rounded-full"
-        />
+      {/* Health Monitoring Section */}
+      <View className="mb-8 rounded-xl bg-white p-6 shadow-sm">
+        <Text className="mb-4 text-xl font-semibold text-gray-800">Monitoramento de Saúde</Text>
 
-        <Text className="mb-4 font-[DINNextW1GRegular] text-[18px] text-white">
-          Olá, Guilherme!
-        </Text>
-        <Text className="font-[DINNextW1GMedium] text-[40px] text-white">Portal BI</Text>
-        <Text className="mt-2 font-[DINNextW1GRegular] text-[16px] text-white">
-          Prefeitura Mun. de Boquim
-        </Text>
+        <View className="mb-4 flex-row items-center justify-between">
+          <View className="flex-row items-center">
+            <AppleLogo size={24} color="#000" weight="fill" className="mr-3" />
+            <Text className="text-lg">Conectar Apple Watch</Text>
+          </View>
+          <Switch
+            value={isWatchConnected}
+            onValueChange={setIsWatchConnected}
+            trackColor={{ false: '#767577', true: '#0D295D' }}
+          />
+        </View>
+
+        <View className="mb-4 flex-row items-center justify-between">
+          <View className="flex-row items-center">
+            <AndroidLogo size={24} color="#000" weight="fill" className="mr-3" />
+            <Text className="text-lg">Conectar Wear OS</Text>
+          </View>
+          <Switch
+            value={isWatchConnected}
+            onValueChange={setIsWatchConnected}
+            trackColor={{ false: '#767577', true: '#0D295D' }}
+          />
+        </View>
+
+        <View className="mb-4 flex-row items-center justify-between">
+          <View className="flex-row items-center">
+            <Heartbeat size={24} color="#000" weight="fill" className="mr-3" />
+            <Text className="text-lg">Monitoramento de Frequência Cardíaca</Text>
+          </View>
+          <Switch
+            value={heartRateMonitoring}
+            onValueChange={setHeartRateMonitoring}
+            trackColor={{ false: '#767577', true: '#0D295D' }}
+          />
+        </View>
       </View>
 
-      <View className="p-5">
-        <Text className="mb-4 font-[DINNextW1GMedium] text-[20px] text-gray-500">Finanças</Text>
-        <View className="mb-6 flex-row flex-wrap gap-4">
-          <MenuItem
-            label="Despesa"
-            icon={<Wallet size={28} color="#000" weight="regular" />}
-            onPress={handleDespesa}
-          />
-          <MenuItem
-            label="Receitas"
-            icon={<BookOpen size={28} color="#000" weight="regular" />}
-            onPress={handleReceitas}
-          />
-          <MenuItem
-            label="Extratos"
-            icon={<FileText size={28} color="#000" weight="regular" />}
-            onPress={handleExtratos}
-          />
-          <MenuItem
-            label="Gerencial"
-            icon={<ChartLine size={28} color="#000" weight="regular" />}
-            onPress={handleGerencial}
-          />
-          <MenuItem
-            label="Restos"
-            icon={<Coins size={28} color="#000" weight="regular" />}
-            onPress={handleRestos}
+      {/* Alerts and Notifications */}
+      <View className="mb-8 rounded-xl bg-white p-6 shadow-sm">
+        <Text className="mb-4 text-xl font-semibold text-gray-800">Alertas e Notificações</Text>
+
+        <View className="mb-4 flex-row items-center justify-between">
+          <View className="flex-row items-center">
+            <Bell size={24} color="#000" weight="fill" className="mr-3" />
+            <Text className="text-lg">Lembretes de Medicamentos</Text>
+          </View>
+          <Switch
+            value={medicationReminders}
+            onValueChange={setMedicationReminders}
+            trackColor={{ false: '#767577', true: '#0D295D' }}
           />
         </View>
 
-        <Text className="mb-4 font-[DINNextW1GMedium] text-[20px] text-gray-500">Fundos</Text>
-        <View className="mb-6 flex-row flex-wrap gap-4">
-          <MenuItem
-            label="FUNDEB"
-            icon={<PuzzlePiece size={28} color="#000" weight="regular" />}
-            onPress={handleFundeb}
-          />
-          <MenuItem
-            label="Educação"
-            icon={<GraduationCap size={28} color="#000" weight="regular" />}
-            onPress={handleEducacao}
+        <View className="mb-4 flex-row items-center justify-between">
+          <View className="flex-row items-center">
+            <DeviceMobile size={24} color="#000" weight="fill" className="mr-3" />
+            <Text className="text-lg">Detecção de Quedas</Text>
+          </View>
+          <Switch
+            value={fallDetection}
+            onValueChange={setFallDetection}
+            trackColor={{ false: '#767577', true: '#0D295D' }}
           />
         </View>
 
-        <Text className="mb-4 font-[DINNextW1GMedium] text-[20px] text-gray-500">Outros</Text>
-        <View className="mb-6 flex-row flex-wrap gap-4">
-          <MenuItem
-            label="Saúde+"
-            icon={<Heartbeat size={28} color="#000" weight="regular" />}
-            onPress={handleSaudePlus}
+        <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center">
+            <Heartbeat size={24} color="#000" weight="fill" className="mr-3" />
+            <Text className="text-lg">SOS de Emergência</Text>
+          </View>
+          <Switch
+            value={emergencySOS}
+            onValueChange={setEmergencySOS}
+            trackColor={{ false: '#767577', true: '#0D295D' }}
           />
         </View>
+      </View>
+
+      {/* Family and Privacy */}
+      <View className="mb-8 rounded-xl bg-white p-6 shadow-sm">
+        <Text className="mb-4 text-xl font-semibold text-gray-800">Família e Privacidade</Text>
+
+        <TouchableOpacity className="mb-4 flex-row items-center justify-between">
+          <View className="flex-row items-center">
+            <User size={24} color="#000" weight="fill" className="mr-3" />
+            <Text className="text-lg">Compartilhar dados com familiares</Text>
+          </View>
+          <Switch
+            value={shareDataWithFamily}
+            onValueChange={setShareDataWithFamily}
+            trackColor={{ false: '#767577', true: '#0D295D' }}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity className="flex-row items-center justify-between">
+          <View className="flex-row items-center">
+            <Lock size={24} color="#000" weight="fill" className="mr-3" />
+            <Text className="text-lg">Contatos de Emergência</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      {/* Help and Support */}
+      <View className="rounded-xl bg-white p-6 shadow-sm">
+        <Text className="mb-4 text-xl font-semibold text-gray-800">Ajuda e Suporte</Text>
+
+        <TouchableOpacity className="mb-4 flex-row items-center">
+          <Question size={24} color="#000" weight="fill" className="mr-3" />
+          <Text className="text-lg">Central de Ajuda</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity className="flex-row items-center">
+          <DeviceMobile size={24} color="#000" weight="fill" className="mr-3" />
+          <Text className="text-lg">Tutorial do Aplicativo</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View className="mt-8 items-center">
+        <Text className="text-sm text-gray-500">Versão 1.2.3</Text>
       </View>
     </ScrollView>
-  );
-}
-
-interface MenuItemProps {
-  label: string;
-  icon: React.ReactNode;
-  onPress?: () => void;
-}
-
-function MenuItem({ label, icon, onPress }: MenuItemProps) {
-  return (
-    <View className="flex items-center gap-2">
-      <TouchableOpacity
-        className="h-[60px] w-[60px] items-center rounded-xl border border-gray-200 bg-white p-4"
-        onPress={onPress}>
-        <View className="mb-2">{icon}</View>
-      </TouchableOpacity>
-      <Text className="text-center font-[DINNextW1GRegular] text-[14px]">{label}</Text>
-    </View>
   );
 }
