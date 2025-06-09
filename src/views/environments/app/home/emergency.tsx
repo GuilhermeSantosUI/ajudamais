@@ -3,19 +3,12 @@ import { useNavigation } from '@react-navigation/native';
 import * as Audio from 'expo-audio';
 import * as Location from 'expo-location';
 import { StatusBar } from 'expo-status-bar';
-import {
-  Ambulance,
-  ArrowLeft,
-  Clock,
-  FirstAid,
-  MapPin,
-  Megaphone,
-  Warning,
-} from 'phosphor-react-native';
+import { Ambulance, ArrowLeft, Clock, FirstAid, MapPin, Megaphone, Warning } from 'phosphor-react-native';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Linking, Platform, Text, TouchableOpacity, Vibration, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import MapView, { Marker, Polyline } from 'react-native-maps';
+
 import Siren from '../../../../../assets/siren.mp3';
 
 // Interface para coordenadas

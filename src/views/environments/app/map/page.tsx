@@ -7,7 +7,7 @@ import { Linking, PermissionsAndroid, Platform, Text, TouchableOpacity, View } f
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import MapView, { Marker, Polyline, Region } from 'react-native-maps';
 
-import { NotificationButton, useNotificationSetup } from './mock/hook';
+import { NotificationButton } from './mock/hook';
 
 export function Map() {
   const sheetRef = useRef<BottomSheet>(null);
@@ -23,7 +23,6 @@ export function Map() {
 
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
-  const { expoPushToken } = useNotificationSetup();
 
   const [destination] = useState({
     latitude: -10.968869,

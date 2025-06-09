@@ -1,25 +1,8 @@
-import {
-  AndroidLogo,
-  AppleLogo,
-  Bell,
-  DeviceMobile,
-  Heartbeat,
-  Lock,
-  Question,
-  User,
-} from 'phosphor-react-native';
+import { AndroidLogo, AppleLogo, Bell, DeviceMobile, Heartbeat, Lock, Question, User } from 'phosphor-react-native';
 import { useState } from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Switch,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, Switch, Text, TouchableOpacity, View } from 'react-native';
 
-export function ElderlyHealthSettings() {
+export function Settings() {
   const [isWatchConnected, setIsWatchConnected] = useState(false);
   const [medicationReminders, setMedicationReminders] = useState(true);
   const [fallDetection, setFallDetection] = useState(true);

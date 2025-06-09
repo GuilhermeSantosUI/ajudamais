@@ -1,9 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Gear, House as HomeIcon, Notebook, PersonSimpleTaiChi } from 'phosphor-react-native';
 import { Home } from '~/views/environments/app/home/page';
 import { Notes } from '~/views/environments/app/notes/page';
-import { Options } from '~/views/environments/app/options/page';
-import { ElderlyHealthSettings } from '~/views/environments/bi/home/page';
+import { Settings } from '~/views/environments/app/settings/page';
+import { Gear, House as HomeIcon, Notebook } from 'phosphor-react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +28,7 @@ export default function TabRoutes() {
       }}>
       <Tab.Screen
         name="Início"
-        component={Options}
+        component={Home}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <HomeIcon color={focused ? '#007AFF' : '#8e8e93'} size={24} />
@@ -46,17 +45,8 @@ export default function TabRoutes() {
         }}
       />
       <Tab.Screen
-        name="Saúde"
-        component={Home}
-        options={{
-          tabBarIcon: ({ color, focused }) => (
-            <PersonSimpleTaiChi color={focused ? '#007AFF' : '#8e8e93'} size={24} />
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Controle"
-        component={ElderlyHealthSettings}
+        component={Settings}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <Gear color={focused ? '#007AFF' : '#8e8e93'} size={24} />
